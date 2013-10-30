@@ -5,7 +5,7 @@ const int lineDelay = 500;  // Time between first line sent to LCD and second li
 const int clearDelay = 2000; // time after a message is written, before we clear it
 const int nextMesDelay = 3000; // Time after we clear a message before we flash the backlight
 
-const int LED2 = A5; // TESTING LED TO REPRESENT BACKLIGHT
+//const int LED2 = A5; // TESTING LED TO REPRESENT BACKLIGHT
 
 int ledState = LOW;             // ledState used to set the LED
 long previousMillis = 0;        // will store last time LED was updated
@@ -49,8 +49,8 @@ char* displayText[][2]={
   {"  ERROR...", "       ERROR!!"}, 
   {"   NEED CANDY        INPUT...","     "},
   {"     HAPPY ", "   HALLOWEEN! "},
-  {"  Test Message 1p1", "    Test Message 1p2"},
-  {"  Test Message 2p1", " Test Message 2p2"}
+  {" CANDY LEVELS", "   VERY LOW "},
+  {"    *insert* ", " *scary joke*"}
   };
 unsigned long LCDTime = 0;
 int NumMessages = 0;
@@ -145,7 +145,7 @@ void backlightFlash(){
     switch (bF) {
       case 1:
         mySerial.write(17);
-        digitalWrite(LED2, HIGH);  // Used for Testing
+        //digitalWrite(LED2, HIGH);  // Used for Testing
         bF = 2;
         bFTime = millis();
         break;
@@ -154,7 +154,7 @@ void backlightFlash(){
         break;
       case 3:
         mySerial.write(18);
-        digitalWrite(LED2, LOW);  // Used for Testing
+        //digitalWrite(LED2, LOW);  // Used for Testing
         bF = 4;
         bFTime = millis();
       case 4:
@@ -194,30 +194,37 @@ void ledFade(){
     case 1:
       RGBLED[0][0]++;      //OFF to RED
       if(RGBLED[0][0] > 250) LEDCF=2;
+      fadeTime = millis();
     break;
     case 2:
       RGBLED[1][0]++;    //RED - Orange - Yellow
       if(RGBLED[1][0] > 250) LEDCF=3;
+      fadeTime = millis();
     break;
     case 3:
       RGBLED[0][0]--;  //Yellow - Green
       if(RGBLED[0][0] < 1) LEDCF=4;
+      fadeTime = millis();
     break;
     case 4:
       RGBLED[2][0]++;  //Green to indigo
-      if(RGBLED[2][0] > 254) LEDCF=5;
+      if(RGBLED[2][0] > 250) LEDCF=5;
+      fadeTime = millis();
     break;
     case 5:
       RGBLED[1][0]--;  //indigo to Blue
       if(RGBLED[1][0] < 1) LEDCF=6;
+      fadeTime = millis();
     break;
     case 6:
       RGBLED[0][0]++; //blue to purple
-      if(RGBLED[0][0] > 254) LEDCF=7;
+      if(RGBLED[0][0] > 250) LEDCF=7;
+      fadeTime = millis();
     break;
     case 7:
       RGBLED[2][0]--; //purple to RED
       if(RGBLED[2][0] < 1) LEDCF=2;
+      fadeTime = millis();
     break;    
     }
     writeLED(); 
