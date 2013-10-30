@@ -1,5 +1,5 @@
 //Notes: Changed LED outpin to pin 11 so I can use PWM
-const int TxPin = 6;  //If this is set to 1, it's because I was testing. 
+const int TxPin = 1;  //If this is set to 1, it's because I was testing. 
 const int ledPin =  10;
 const int lineDelay = 500;  // Time between first line sent to LCD and second line.  
 const int clearDelay = 4000; // time after a message is written, before we clear it
@@ -115,14 +115,15 @@ void LCDMessage(){
   case 3:
    if(currenTime > (LCDTime + clearDelay))
    {
-    mySerial.write(12);
-    mySerial.write(18);
-    DisplayCount = 4;
+     mySerial.write(12);
+     DisplayCount = 4;
     LCDTime = millis();
    }
+   break;
   case 4:
     if(currenTime > (LCDTime + nextMesDelay))
     {
+      mySerial.write(18);
       flashCounter = 0;
       flashCount = random(3,20); // Set the number of Backlight flashes to a random number of max value 20
       DisplayCount = 1;
@@ -157,6 +158,7 @@ void backlightFlash(){
         //digitalWrite(LED2, LOW);  // Used for Testing
         bF = 4;
         bFTime = millis();
+        break;
       case 4:
         if(currenTime > (bFTime + 100)) 
         {
