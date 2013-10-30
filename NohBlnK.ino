@@ -1,9 +1,9 @@
 //Notes: Changed LED outpin to pin 11 so I can use PWM
-const int TxPin = 1;
+const int TxPin = 6;  //If this is set to 1, it's because I was testing. 
 const int ledPin =  10;
 const int lineDelay = 500;  // Time between first line sent to LCD and second line.  
-const int clearDelay = 2000; // time after a message is written, before we clear it
-const int nextMesDelay = 3000; // Time after we clear a message before we flash the backlight
+const int clearDelay = 4000; // time after a message is written, before we clear it
+const int nextMesDelay = 2000; // Time after we clear a message before we flash the backlight
 
 //const int LED2 = A5; // TESTING LED TO REPRESENT BACKLIGHT
 
